@@ -5,6 +5,8 @@ import math
 import numpy as np
 import scipy.misc
 
+import cv2
+
 #import coco
 
 from PIL import Image, ExifTags
@@ -152,7 +154,7 @@ def predict(image_file, format='jpg'):
     
     image=plt.imread(image_file, format=format)
 
-    results = model.detect([img], verbose=1)
+    results = model.detect([image], verbose=1)
     r = results[0]
 
     boxes, masks, class_ids, scores = r['rois'], r['masks'], r['class_ids'], r['scores']
