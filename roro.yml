@@ -5,4 +5,4 @@ services:
   - name: api
     function: predict.predict
   - name: default
-    command: gunicorn webapp:app
+    command: gunicorn -b 0.0.0.0:8080 webapp:app
