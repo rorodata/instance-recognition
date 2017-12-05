@@ -1,7 +1,7 @@
 {% extends 'layout.html' %}
 
 {% block menu %}
-	<p><a href="/">Refresh &nbsp;|</a><a href="https://github.com/rorodata/instance-recognition">&nbsp; Source Code &nbsp;|</a></p>
+	<p><a href="/">Refresh &nbsp;|</a><a href="https://github.com/rorodata/instance-recognition">&nbsp; Source Code &nbsp;</a></p>
 {% endblock %}
 
 
@@ -26,7 +26,7 @@
   		
 		<form action="/predict" method="POST">
 			<input type="hidden" name="image_url" value="http://www.slate.com/content/dam/slate/blogs/future_tense/2014/09/25/to_insure_subprime_auto_loans_companies_are_installing_starter_interrupt/167503533-morning-traffic-fills-the-sr2-freeway-on-april-25-2013.jpg.CROP.promo-mediumlarge.jpg">
-  			<button type="submit" class="image-back"><img src="/static/cars.jpg" alt="Forest" style="{width:250px}"></button>
+  			<button type="submit" class="image-back"><img src="http://www.slate.com/content/dam/slate/blogs/future_tense/2014/09/25/to_insure_subprime_auto_loans_companies_are_installing_starter_interrupt/167503533-morning-traffic-fills-the-sr2-freeway-on-april-25-2013.jpg.CROP.promo-mediumlarge.jpg" alt="Forest" style="{width:250px}"></button>
   		</form>
 	</div>
 
