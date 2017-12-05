@@ -15,7 +15,7 @@ from firefly import Client
 app = Flask(__name__)
 # app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
 
-API_ENDPOINT = "https://instance-recognition-demo.rorocloud.io/"
+API_ENDPOINT = "https://instance-recognition-demo--api.rorocloud.io/"
 
 api_req = Client(API_ENDPOINT)
 

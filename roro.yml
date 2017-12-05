@@ -2,5 +2,7 @@ project: instance-recognition-demo
 runtime: rorodata/sandbox
 
 services:
-  - name: default
+  - name: api
     function: predict.predict
+  - name: default
+    command: gunicorn webapp:app
