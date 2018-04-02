@@ -1,8 +1,7 @@
 project: instance-recognition-demo
-runtime: rorodata/sandbox
+runtime: python3-keras
 
 services:
-  - name: api
-    function: predict.predict
   - name: default
-    command: gunicorn -b 0.0.0.0:8080 webapp:app
+    function: predict.predict
+    cors_allow_origins: "*"

@@ -24,6 +24,8 @@ import matplotlib.pyplot as plt
 import utils
 import modellib
 import visualize
+import base64
+import requests
 
 MODEL_URL = 'https://github.com/matterport/Mask_RCNN/releases/download/v2.0/mask_rcnn_coco.h5'
 MODEL_PATH = '/volumes/data/mask_rcnn_coco.h5'
@@ -148,26 +150,36 @@ def paint_detections(image, boxes, masks, class_names, class_ids, scores):
     return masked_image
 
 
+def read_image(image_spec):
+    if not isinstance(image_spec, dict):
+        return None
+    if 'data' in image_spec:
+        data = base64.b64decode(image_spec['data'])
+    elif 'url' in image_spec:
+        data = requests.get(image_spec['url']).content
+    else:
+        return None
+    return Image.open(fp=io.BytesIO(data))
 
-def predict(image_file, format='jpg'):
+def write_image(image):
+    if isinstance(image, np.ndarray):
+        image = Image.fromarray(image)
+    fp = io.BytesIO()
+    image.save(fp, format='png')
+    return {
+        "data": base64.b64encode(fp.getvalue()).decode('ascii'),
+        "content-type": "image/png"
+    }
+
+def predict(image):
     global model, class_names
-    
-    image=plt.imread(image_file, format=format)
+    pil_image = read_image(image)
+    image_array = np.array(pil_image)
 
-    results = model.detect([image], verbose=1)
+    results = model.detect([image_array], verbose=1)
     r = results[0]
 
     boxes, masks, class_ids, scores = r['rois'], r['masks'], r['class_ids'], r['scores']
-    
-    img2=paint_detections(image, boxes, masks, class_names, class_ids, scores)
-    f = io.BytesIO()
-    plt.imsave(f, img2)
-    f.seek(0)
-    return f
 
-
-
-
-
-
-
+    img2=paint_detections(image_array, boxes, masks, class_names, class_ids, scores)
+    return write_image(img2)
